@@ -1,0 +1,41 @@
+
+trigger:
+- master
+
+pool:
+  name: Azure Pipelines
+  demands: npm
+
+steps:
+- task: Npm@1
+  displayName: 'install newman '
+  inputs:
+    command: custom
+    workingDir: '$(Build.SourcesDirectory)'
+    verbose: false
+    customCommand: 'install newman -g'
+
+- task: Npm@1
+  displayName: 'install newman-reporter'
+  inputs:
+    command: custom
+    workingDir: '$(Build.SourcesDirectory)'
+    verbose: false
+    customCommand: 'install -g newman-reporter-htmlextra '
+
+- script: |
+   newman run postman_collection.json \
+         --reporters cli,htmlextra,junit \
+         --reporter-junit-export JuntiReport.xml \
+         --reporter-htmlextra-export TestReport.html \
+  displayName: 'Add html Report'
+
+- task: MaciejMaciejewski.postman-report.UploadPostmanHtmlReport.UploadPostmanHtmlReport@1
+  displayName: 'Upload Postman Html Report'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Result'
+  inputs:
+    testResultsFiles: '**/*.xml'
+
+
