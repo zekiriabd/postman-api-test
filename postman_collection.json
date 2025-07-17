@@ -1,0 +1,257 @@
+{
+	"info": {
+		"_postman_id": "fb1cab51-2f83-4ef8-97b6-b49c2a936979",
+		"name": "NounouJob",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16721419"
+	},
+	"item": [
+		{
+			"name": "1-GetToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// ✅ اختبار: تحقق أن كود الاستجابة هو 200\r",
+							"pm.test(\"كود الاستجابة هو 200\", function () {\r",
+							"    if (pm.response.code == 200) {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    }\r",
+							"    else {\r",
+							"        throw new Error(\"فشل الطلب: كود الاستجابة هو \" + pm.response.code);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// استرحاع الاجابةكـ JSON.\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"// ✅ تحقق من وجود التوكن، وإطلاق خطأ إن لم يوجد\r",
+							"pm.test(\"الاجابة صحيحة و تحتوي على token\", function () {\r",
+							"    if (response.results && response.results.length > 0 && response.results[0].key) {\r",
+							"        pm.globals.set(\"token\", response.results[0].key);\r",
+							"    } else {\r",
+							"        throw new Error(\"الرد لا يحتوي على 'token'.\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.nettoolkit.com/v1/account/test-api-keys",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nettoolkit",
+						"com"
+					],
+					"path": [
+						"v1",
+						"account",
+						"test-api-keys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2-GetGeocodes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "test_NPjuNhoRzcE79xy4CRUI7AvxhnscdtO1Kvud8RGW",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-NTK-KEY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nettoolkit.com/v1/geo/geocodes?address=790%20E%20Duane%20Ave%2C%20Sunnyvale%2C%20CA%2094085",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nettoolkit",
+						"com"
+					],
+					"path": [
+						"v1",
+						"geo",
+						"geocodes"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "790%20E%20Duane%20Ave%2C%20Sunnyvale%2C%20CA%2094085"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-DeletePost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// ✅ اختبار: تحقق أن كود الاستجابة هو 200\r",
+							"pm.test(\"كود الاستجابة هو 200\", function () {\r",
+							"    if (pm.response.code == 200) {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    }\r",
+							"    else {\r",
+							"        throw new Error(\"فشل الطلب: كود الاستجابة هو \" + pm.response.code);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-UpdatePost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// ✅ اختبار: تحقق أن كود الاستجابة هو 200\r",
+							"pm.test(\"كود الاستجابة هو 200\", function () {\r",
+							"    if (pm.response.code == 200) {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    }\r",
+							"    else {\r",
+							"        throw new Error(\"فشل الطلب: كود الاستجابة هو \" + pm.response.code);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\": 1,\r\n        \"id\": 1,\r\n        \"title\": \"aaaaaaaaaat\",\r\n        \"body\": \"sssssssss\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
