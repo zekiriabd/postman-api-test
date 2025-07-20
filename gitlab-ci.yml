@@ -1,0 +1,22 @@
+stages:
+  - test
+
+variables:
+  POSTMAN_REPORT: "TestReport.html"
+
+run-postman-tests:
+  stage: test
+  image: 
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  
+  script:
+    - npm install -g newman-reporter-html
+    - newman run postman_collection.json --reporters cli,html --reporter-html-export public/$POSTMAN_REPORT
+    - echo "https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME/$POSTMAN_REPORT"
+
+  artifacts:
+    when: always
+    paths:
+      - public/$POSTMAN_REPORT
+      
